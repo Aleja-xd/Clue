@@ -1,0 +1,13 @@
+[project]
+name = "isis1611_taller-logica"
+version = "1.0.0"
+description = "Investigacion Criminalística con Lógica Proposicional y de Predicados"
+requires-python = ">=3.14"
+dependencies = [
+    "ipykernel>=7.2.0",
+    "pip>=26.0.1",
+    "pytest>=9.0.2",
+    "rich>=13.0",
+    "ruff>=0.15.7",
+    "textual>=0.80.0",
+]
