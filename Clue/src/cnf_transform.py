@@ -204,7 +204,45 @@ def flatten(formula: Formula) -> Formula:
           Si al final solo queda 1 elemento, retornalo directamente.
     """
     # === YOUR CODE HERE ===
-    raise NotImplementedError("Implementa flatten()")
+    if isinstance(formula, Atom):
+        return formula
+
+    if isinstance(formula, Not):
+        return Not(flatten(formula.operand))
+
+    if isinstance(formula, And):
+        nuevos = []
+
+        for c in formula.conjuncts:
+            c_flat = flatten(c)
+
+            if isinstance(c_flat, And):
+                nuevos.extend(c_flat.conjuncts)
+            else:
+                nuevos.append(c_flat)
+
+        if len(nuevos) == 1:
+            return nuevos[0]
+
+        return And(*nuevos)
+
+    if isinstance(formula, Or):
+        nuevos = []
+
+        for d in formula.disjuncts:
+            d_flat = flatten(d)
+
+            if isinstance(d_flat, Or):
+                nuevos.extend(d_flat.disjuncts)
+            else:
+                nuevos.append(d_flat)
+
+        if len(nuevos) == 1:
+            return nuevos[0]
+
+        return Or(*nuevos)
+
+    return formula
     # === END YOUR CODE ===
 
 
