@@ -5,6 +5,7 @@ Verifica que backward_chain y forward_chain resuelven correctamente cada caso.
 Ejecutar con: pytest tests/test_predicates.py -v
 """
 
+from crimes.crimen_bono import CASE as miss_peacock
 from crimes.herencia_hacienda_rosal import CASE as herencia
 from crimes.red_puerto_sombras import CASE as red_puerto
 from crimes.robo_expreso_sur import CASE as robo
@@ -189,9 +190,45 @@ class TestRedPuertoSombras:
         r = backward_chain(self.kb, self.case.queries[5].goal)
         assert r.success, self.case.queries[5].description
 
+# ---------------------------------------------------------------------------
+# 6. TestAsesinatoDeMissPeackock
+# ---------------------------------------------------------------------------
+
+
+class TestAsesinatoDeMissPeackock:
+    """Backward chaining: 6 queries del caso El asesinato de Miss Peacock."""
+
+    def setup_method(self) -> None:
+        self.case = miss_peacock
+        self.kb = self.case.create_kb()
+
+    def test_tomas_descartado(self) -> None:
+        r = backward_chain(self.kb, self.case.queries[0].goal)
+        assert r.success, self.case.queries[0].description
+
+    def test_elena_descartada(self) -> None:
+        r = backward_chain(self.kb, self.case.queries[1].goal)
+        assert r.success, self.case.queries[1].description
+
+    def test_lucia_en_escena(self) -> None:
+        r = backward_chain(self.kb, self.case.queries[2].goal)
+        assert r.success, self.case.queries[2].description
+
+    def test_salas_culpable(self) -> None:
+        r = backward_chain(self.kb, self.case.queries[3].goal)
+        assert r.success, self.case.queries[3].description
+
+    def test_lucia_culpable(self) -> None:
+        r = backward_chain(self.kb, self.case.queries[4].goal)
+        assert r.success, self.case.queries[4].description
+
+    def test_alianza_criminal_existe(self) -> None:
+        r = backward_chain(self.kb, self.case.queries[5].goal)
+        assert r.success, self.case.queries[5].description
+
 
 # ---------------------------------------------------------------------------
-# 6. TestForwardChaining
+# 7. TestForwardChaining
 # ---------------------------------------------------------------------------
 
 
@@ -264,7 +301,7 @@ class TestForwardChaining:
 
 
 # ---------------------------------------------------------------------------
-# 7. TestNegativeCases
+# 8. TestNegativeCases
 # ---------------------------------------------------------------------------
 
 
